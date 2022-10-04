@@ -21,7 +21,9 @@ jobs:
           name: Load Docker image layer cache
           command: |
             # set +o pipefail
-            docker load -i /caches/app.tar | true
+            if [[ -f "/caches/app.tar" ]]; then
+              docker load -i /caches/app.tar | true
+            fi
       - run:
           name: Build front-end
           command: |
