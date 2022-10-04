@@ -34,7 +34,7 @@ jobs:
           name: Save Docker image layer cache
           command: |
             mkdir -p /caches
-            docker save -o /caches/capstone-frontend.tar capstone-frontend
+            docker save -o /caches/capstone-frontend.tar duyhuynhdn/capstone-frontend
       - save_cache:
           key: v1-{{ .Branch }}-{{ epoch }}
           paths:
