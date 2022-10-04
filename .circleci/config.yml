@@ -9,21 +9,33 @@ orbs:
 jobs:
   build-frontend:
     docker:
-      - image: circleci/node:13.8.0
+      - image: docker:17.05.0-ce-git
     steps:
       - checkout
       - restore_cache:
-          keys: [frontend-build]
+          keys:
+            - v1-{{ .Branch }}
+          paths:
+            - /caches/app.tar
+      - run:
+          name: Load Docker image layer cache
+          command: |
+            # set +o pipefail
+            docker load -i /caches/app.tar | true
       - run:
           name: Build front-end
           command: |
             cd frontend
-            npm cache clean -f
-            npm install
-            npm run build
+            docker build -t duyhuynhdn/capstone-frontend .
+      - run:
+          name: Save Docker image layer cache
+          command: |
+            mkdir -p /caches
+            docker save -o /caches/app.tar app
       - save_cache:
-          paths: [frontend/node_modules]
-          key: frontend-build
+          key: v1-{{ .Branch }}-{{ epoch }}
+          paths:
+            - /caches/app.tar
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
