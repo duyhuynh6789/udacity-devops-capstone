@@ -15,7 +15,7 @@ spec:
         service: capstone-frontend
     spec:
       containers:
-        - image: duyhuynhdn/capstone-frontend:v1
+        - image: duyhuynhdn/capstone-frontend
           name: capstone-frontend
           imagePullPolicy: Always
           ports:
