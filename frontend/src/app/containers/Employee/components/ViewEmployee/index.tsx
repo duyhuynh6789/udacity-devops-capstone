@@ -157,7 +157,7 @@ export class ViewEmployee extends Component<
         isFetching={isFetching}
         searchText={searchText}
         onSearchChange={this.handleSearch}
-        placeholder='Search in the app'
+        placeholder='Search in the app 11'
         title='General Search'
       />
     );
