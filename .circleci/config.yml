@@ -5,6 +5,8 @@ version: 2.1
 # See: https://circleci.com/docs/2.0/orb-intro/
 orbs:
   node: circleci/node@4.7
+  aws-eks: circleci/aws-eks@0.2.0
+  kubernetes: circleci/kubernetes@0.3.0
 
 jobs:
   build-frontend:
@@ -45,6 +47,29 @@ jobs:
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" -p "$DOCKERHUB_PASS"
             docker push duyhuynhdn/capstone-frontend:latest
 
+  deploy-frontend:
+    executor: aws-eks/python3
+    parameters:
+      cluster-name:
+        description: |
+          Name of the EKS cluster
+        type: string
+    steps:
+      - checkout
+      - aws-eks/update-kubeconfig-with-authenticator:
+          cluster-name: << parameters.cluster-name >>
+          install-kubectl: true
+      - kubernetes/create-or-update-resource:
+          get-rollout-status: true
+          resource-file-path: "kubernates/capstone-frontend-deployment.yml"
+          resource-name: kubernates/capstone-frontend
+      - kubernetes/create-or-update-resource:
+          get-rollout-status: true
+          resource-file-path: "kubernates/capstone-frontend-service.yml"
+          resource-name: kubernates/capstone-frontend
+
+
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -52,3 +77,6 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - build-frontend
+      - deploy-frontend:
+          requires:
+              - build-frontend

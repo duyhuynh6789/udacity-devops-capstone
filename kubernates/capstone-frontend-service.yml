@@ -5,7 +5,7 @@ metadata:
   labels:
     run: capstone-frontend
 spec:
-  type: LoadBalancer
+  # type: LoadBalancer
   ports:
   - port: 80
     protocol: TCP
