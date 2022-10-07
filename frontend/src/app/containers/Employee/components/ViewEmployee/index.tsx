@@ -236,7 +236,7 @@ export class ViewEmployee extends Component<
                 className={`${style.cell} ${style['medium-6']} ${style['large-6']}`}
               >
                 <div className={style['input-cell']}>
-                  <label htmlFor='displayname'>Display Name</label>
+                  <label htmlFor='displayname'>Display Name 11</label>
                   <div className={`${style['read-input']} ${style.big}`}>
                     {this.state.displayName}
                   </div>
