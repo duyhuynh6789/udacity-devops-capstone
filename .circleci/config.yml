@@ -81,3 +81,10 @@ workflows:
       - deploy-frontend:
           requires:
               - build-frontend
+      - aws-eks/update-container-image:
+          cluster-name: "EKSClusterCapstone"
+          container-image-updates: 'duyhuynhdn/capstone-frontend:latest'
+          record: true
+          requires:
+            - deploy-frontend
+          resource-name: deployment/capstone-frontend
