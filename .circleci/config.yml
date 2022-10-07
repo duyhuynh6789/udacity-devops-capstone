@@ -87,7 +87,11 @@ workflows:
       - aws-eks/update-container-image:
           cluster-name: "EKSClusterCapstone"
           container-image-updates: 'capstone-frontend=duyhuynhdn/capstone-frontend:latest'
-          record: true
+          post-steps:
+            - kubernetes/delete-resource:
+                resource-names: capstone-frontend
+                resource-types: deployment
+                wait: true
           requires:
             - deploy-frontend
           resource-name: deployment/capstone-frontend
