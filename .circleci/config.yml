@@ -33,6 +33,7 @@ jobs:
           command: |
             chmod +x ./variable.sh
             ./variable.sh
+            echo $TARGET
 
   build-frontend:
     docker:
