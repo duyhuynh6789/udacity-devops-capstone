@@ -63,11 +63,11 @@ jobs:
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
           resource-file-path: "kubernates/capstone-frontend-deployment.yml"
-          resource-name: kubernates/capstone-frontend
+          resource-name: deployment/capstone-frontend
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
           resource-file-path: "kubernates/capstone-frontend-service.yml"
-          resource-name: kubernates/capstone-frontend
+          resource-name: deployment/capstone-frontend
 
 
 
