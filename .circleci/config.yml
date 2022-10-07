@@ -16,6 +16,7 @@ jobs:
       - run:
           name: Test
           command: |
+            chmod +x ./variable.sh
             ./variable.sh
 
   build-frontend:
