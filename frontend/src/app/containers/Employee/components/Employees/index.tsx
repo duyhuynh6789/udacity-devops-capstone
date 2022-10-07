@@ -229,7 +229,7 @@ export class Employees extends React.Component<
                   className={`${style.icon} ${style['i-plus']} ${style['margin-right']}`}
                   aria-hidden='true'
                 />
-                Add New Employee 5Duyhv3
+                Add New Employee 5Test
               </Button>
             </div>
           </div>
