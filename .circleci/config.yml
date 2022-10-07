@@ -71,7 +71,6 @@ jobs:
       - kubernetes/update-container-image:
           get-rollout-status: true
           container-image-updates: 'capstone-frontend=duyhuynhdn/capstone-frontend:latest'
-          resource-file-path: "kubernates/capstone-frontend-service.yml"
           resource-name: deployment/capstone-frontend
   
   # update-container:
