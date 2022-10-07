@@ -68,11 +68,6 @@ jobs:
           get-rollout-status: true
           resource-file-path: "kubernates/capstone-frontend-service.yml"
           resource-name: deployment/capstone-frontend
-      - aws-eks/update-container-image:
-          cluster-name: "EKSClusterCapstone"
-          container-image-updates: 'duyhuynhdn/capstone-frontend:latest'
-          record: true
-          resource-name: deployment/capstone-frontend
   
   # update-container:
   #   executor: aws-eks/python3
@@ -89,4 +84,10 @@ workflows:
       - deploy-frontend:
           requires:
               - build-frontend
-      
+      - aws-eks/update-container-image:
+          cluster-name: "EKSClusterCapstone"
+          container-image-updates: 'capstone-frontend=duyhuynhdn/capstone-frontend:latest'
+          record: true
+          requires:
+            - deploy-frontend
+          resource-name: deployment/capstone-frontend
