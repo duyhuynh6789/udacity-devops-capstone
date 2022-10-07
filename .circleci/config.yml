@@ -24,6 +24,16 @@ jobs:
             chmod +x ./variable.sh
             ./variable.sh
 
+  test2:
+    executor: aws-eks/python3
+    steps:
+      - checkout      
+      - run:
+          name: Test
+          command: |
+            chmod +x ./variable.sh
+            ./variable.sh
+
   build-frontend:
     docker:
       - image: docker:17.05.0-ce-git
@@ -104,6 +114,8 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - test
+      - test2:
+          requires: test
       # - build-frontend
       # - deploy-frontend:
       #     requires:
