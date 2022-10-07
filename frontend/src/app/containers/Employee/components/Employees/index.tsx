@@ -212,7 +212,7 @@ export class Employees extends React.Component<
               <a style={this.thirdLevelBreadcrumb}>Employees</a>
             </li>
             <li>
-              <a style={this.thirdLevelBreadcrumb}>View & Manage</a>
+              <a style={this.thirdLevelBreadcrumb}>View & Manage 111</a>
             </li>
           </Breadcrumb>
 
@@ -229,7 +229,7 @@ export class Employees extends React.Component<
                   className={`${style.icon} ${style['i-plus']} ${style['margin-right']}`}
                   aria-hidden='true'
                 />
-                Add New Employee
+                Add New Employee 112
               </Button>
             </div>
           </div>
