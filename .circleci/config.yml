@@ -72,6 +72,10 @@ jobs:
           get-rollout-status: true
           container-image-updates: "capstone-frontend=duyhuynhdn/capstone-frontend:latest"
           resource-name: deployment/capstone-frontend
+      - run:
+          name: Restart image
+          command: |
+            kubectl rollout restart deployment/capstone-frontend
   
   # update-container:
   #   executor: aws-eks/python3
