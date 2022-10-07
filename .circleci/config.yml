@@ -9,6 +9,15 @@ orbs:
   kubernetes: circleci/kubernetes@0.4.0
 
 jobs:
+  test:
+    executor: aws-eks/python3
+    steps:
+      - checkout
+      - run:
+          name: Test
+          command: |
+            ./variable.sh
+
   build-frontend:
     docker:
       - image: docker:17.05.0-ce-git
