@@ -34,6 +34,7 @@ jobs:
             chmod +x ./variable.sh
             ./variable.sh
             echo $TARGET
+            printenv
 
   build-frontend:
     docker:
