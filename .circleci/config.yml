@@ -99,9 +99,9 @@ workflows:
     jobs:
       - test
       # - build-frontend
-      - deploy-frontend:
-          requires:
-              - build-frontend
+      # - deploy-frontend:
+      #     requires:
+      #         - build-frontend
       # - aws-eks/update-container-image:
       #     cluster-name: "EKSClusterCapstone"
       #     container-image-updates: 'capstone-frontend=duyhuynhdn/capstone-frontend:latest'
