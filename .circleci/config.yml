@@ -70,7 +70,7 @@ jobs:
           resource-name: deployment/capstone-frontend
       - kubernetes/update-container-image:
           get-rollout-status: true
-          container-image-updates: 'capstone-frontend=duyhuynhdn/capstone-frontend:latest'
+          container-image-updates: "capstone-frontend=duyhuynhdn/capstone-frontend:latest"
           resource-name: deployment/capstone-frontend
   
   # update-container:
