@@ -77,7 +77,6 @@ jobs:
       - checkout
       - aws-eks/update-kubeconfig-with-authenticator:
           cluster-name: << parameters.cluster-name >>
-          # cluster-name: "EKSClusterCapstone"
           install-kubectl: true
       -  run:
           name: Install envsubst
@@ -92,12 +91,12 @@ jobs:
             if grep -q 'capstone-frontend' service.txt; then
               kubectl describe service capstone-frontend > capstone.txt
               if [ grep -q "role=GREEN" capstone.txt ]; then
-                echo 'export COLOR=BLUE' >> "$BASH_ENV"
+                echo 'export COLOR=blue' >> "$BASH_ENV"
               else
-                echo 'export COLOR=GREEN' >> "$BASH_ENV"
+                echo 'export COLOR=green' >> "$BASH_ENV"
               fi
             else
-              echo 'export COLOR=BLUE' >> "$BASH_ENV"
+              echo 'export COLOR=blue' >> "$BASH_ENV"
             fi
             source "$BASH_ENV"
       - run:
