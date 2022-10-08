@@ -138,9 +138,9 @@ workflows:
       - build-frontend
       - deploy-frontend:
           cluster-name: "EKSClusterCapstone"
-          # requires:
-              # - build-frontend
-              # - deploy-cfn
+          requires:
+              - build-frontend
+              - deploy-cfn
       # - aws-eks/update-container-image:
       #     cluster-name: "EKSClusterCapstone"
       #     container-image-updates: 'capstone-frontend=duyhuynhdn/capstone-frontend:latest'
