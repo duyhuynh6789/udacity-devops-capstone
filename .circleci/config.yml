@@ -96,9 +96,10 @@ jobs:
             fi
             source "$BASH_ENV"
       - run:
-          name: Restart image
+          name: Replace variable
           command: |
-            echo $COLOR
+            envsubst < kubernates/capstone-frontend-deployment.yml
+            envsubst < kubernates/capstone-frontend-service.yml
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
           resource-file-path: "kubernates/capstone-frontend-deployment.yml"

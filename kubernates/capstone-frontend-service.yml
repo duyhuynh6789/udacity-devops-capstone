@@ -4,12 +4,12 @@ metadata:
   name: capstone-frontend
   labels:
     app: capstone-frontend
-    role: ${COLOR}
+    role: $COLOR
 spec:
   type: LoadBalancer
   ports:
   - port: 80
     targetPort: 80    
   selector:
-    app: capstone-frontend-${COLOR}
-    role: ${COLOR}
+    app: capstone-frontend
+    role: $COLOR
