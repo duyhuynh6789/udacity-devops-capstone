@@ -84,7 +84,7 @@ jobs:
           name: Restart image
           command: |
             kubectl describe service capstone-frontend
-            if [ grep -q "role=GREEN" $? ]; then
+            if [ $? -eq 0 || grep -q "role=GREEN" $? ]; then
               echo 'export COLOR=BLUE' >> "$BASH_ENV"
             else
               echo 'export COLOR=GREEN' >> "$BASH_ENV"
@@ -114,13 +114,14 @@ workflows:
   default: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:
-      - deploy-cfn:
-          stack-name: Udacity-Capstone
-      - build-frontend
+      # - deploy-cfn:
+      #     stack-name: Udacity-Capstone
+      # - build-frontend
       - deploy-frontend:
           cluster-name: "EKSClusterCapstone"
           requires:
-              - build-frontend
+              # - build-frontend
+              - deploy-cfn
       # - aws-eks/update-container-image:
       #     cluster-name: "EKSClusterCapstone"
       #     container-image-updates: 'capstone-frontend=duyhuynhdn/capstone-frontend:latest'
