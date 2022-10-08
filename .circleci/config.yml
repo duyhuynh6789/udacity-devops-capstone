@@ -23,7 +23,7 @@ jobs:
           name: Deploy Cloudformation Template with new Docker image
           command: |
             aws cloudformation deploy \
-            --template-body infrastructure/capstone-infra.yml \
+            --template-file infrastructure/capstone-infra.yml \
             --parameters infrastructure/capstone-infra-parameters.json \
             --stack-name << parameters.stack-name >> \
             --capabilities "CAPABILITY_IAM" "CAPABILITY_NAMED_IAM"
