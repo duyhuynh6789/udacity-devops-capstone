@@ -108,7 +108,7 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - deploy-cfn:
-        stack-name: Udacity-Capstone
+          stack-name: Udacity-Capstone
       # - build-frontend
       # - deploy-frontend:
       #     requires:
