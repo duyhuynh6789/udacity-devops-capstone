@@ -95,6 +95,10 @@ jobs:
               echo 'export COLOR=BLUE' >> "$BASH_ENV"
             fi
             source "$BASH_ENV"
+      - run:
+          name: Restart image
+          command: |
+            echo $COLOR
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
           resource-file-path: "kubernates/capstone-frontend-deployment.yml"

@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: capstone-frontend
   labels:
-    app: tomcat
+    app: capstone-frontend
     role: ${COLOR}
 spec:
   type: LoadBalancer
