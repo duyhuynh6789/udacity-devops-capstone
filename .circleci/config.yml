@@ -24,9 +24,8 @@ jobs:
           command: |
             aws cloudformation deploy \
             --template-file infrastructure/capstone-infra.yml \
-            --parameter-overrides infrastructure/capstone-infra-parameters.json \
-            --stack-name << parameters.stack-name >> \
-            --capabilities "CAPABILITY_IAM" "CAPABILITY_NAMED_IAM"
+            --parameter-overrides infrastructure/capstone-infra-parameters-deploy.json \
+            --stack-name << parameters.stack-name >>
 
   build-frontend:
     docker:
