@@ -1,10 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: capstone-frontend
-  
+  name: capstone-frontend  
 spec:
   replicas: 2
+  selector:
+    matchLabels:
+      service: capstone-frontend
   template:
     metadata:
       labels:
