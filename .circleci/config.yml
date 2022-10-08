@@ -118,12 +118,12 @@ jobs:
           resource-name: deployment/capstone-frontend-$COLOR
       - kubernetes/update-container-image:
           get-rollout-status: true
-          container-image-updates: "capstone-frontend=duyhuynhdn/capstone-frontend:latest"
-          resource-name: deployment/capstone-frontend
+          container-image-updates: "capstone-frontend-$COLOR=duyhuynhdn/capstone-frontend:latest"
+          resource-name: deployment/capstone-frontend-$COLOR
       - run:
           name: Restart image
           command: |
-            kubectl rollout restart deployment/capstone-frontend
+            kubectl rollout restart deployment/capstone-frontend-$COLOR
   
 
 # Invoke jobs via workflows
