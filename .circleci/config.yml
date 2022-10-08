@@ -83,12 +83,16 @@ jobs:
       -  run:
           name: Restart image
           command: |
-            kubectl describe service capstone-frontend
-            if [ $? -eq 0 || grep -q "role=GREEN" $? ]; then
-              echo 'export COLOR=BLUE' >> "$BASH_ENV"
+            kubectl get service > service.txt
+            if grep -q 'capstone-frontend' service.txt; then
+              kubectl describe service capstone-frontend > capstone.txt
+              if [ grep -q "role=GREEN" capstone.txt ]; then
+                echo 'export COLOR=BLUE' >> "$BASH_ENV"
+              else
+                echo 'export COLOR=GREEN' >> "$BASH_ENV"
+              fi
             else
-              echo 'export COLOR=GREEN' >> "$BASH_ENV"
-            fi
+              echo 'export COLOR=BLUE' >> "$BASH_ENV"
             source "$BASH_ENV"
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
