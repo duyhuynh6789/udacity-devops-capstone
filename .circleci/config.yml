@@ -24,7 +24,7 @@ jobs:
           command: |
             aws cloudformation deploy \
             --template-file infrastructure/capstone-infra.yml \
-            --parameters infrastructure/capstone-infra-parameters.json \
+            --parameter-overrides infrastructure/capstone-infra-parameters.json \
             --stack-name << parameters.stack-name >> \
             --capabilities "CAPABILITY_IAM" "CAPABILITY_NAMED_IAM"
 
