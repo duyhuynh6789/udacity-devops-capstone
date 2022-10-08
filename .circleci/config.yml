@@ -119,7 +119,7 @@ workflows:
       # - build-frontend
       - deploy-frontend:
           cluster-name: "EKSClusterCapstone"
-          requires:
+          # requires:
               # - build-frontend
               # - deploy-cfn
       # - aws-eks/update-container-image:
