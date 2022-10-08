@@ -22,6 +22,7 @@ jobs:
       - run:
           name: Deploy Cloudformation Template with new Docker image
           command: |
+            yum install jq
             aws cloudformation deploy \
             --template-file infrastructure/capstone-infra.yml \
             --parameter-overrides $(jq -r '.[] | [.ParameterKey, .ParameterValue] | "\(.[0])=\(.[1])"' ./infrastructure/capstone-infra-parameters.json) \
