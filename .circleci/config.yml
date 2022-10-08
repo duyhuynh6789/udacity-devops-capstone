@@ -105,6 +105,10 @@ jobs:
           command: |
             envsubst < kubernates/capstone-frontend-deployment.yml
             envsubst < kubernates/capstone-frontend-service.yml
+            echo "##################################"
+            cat kubernates/capstone-frontend-deployment.yml
+            echo "##################################"
+            cat kubernates/capstone-frontend-service.yml
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
           resource-file-path: "kubernates/capstone-frontend-deployment.yml"
