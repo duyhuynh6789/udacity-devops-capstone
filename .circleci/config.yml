@@ -93,6 +93,7 @@ jobs:
               fi
             else
               echo 'export COLOR=BLUE' >> "$BASH_ENV"
+            fi
             source "$BASH_ENV"
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
