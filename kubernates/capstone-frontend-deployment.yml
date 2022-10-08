@@ -1,18 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    service: capstone-frontend-$COLOR
-  name: capstone-frontend-$COLOR
+  name: capstone-frontend
+  
 spec:
   replicas: 2
-  selector:
-    matchLabels:
-      service: capstone-frontend
   template:
     metadata:
       labels:
-        service: capstone-frontend-$COLOR
+        app: capstone-frontend
+        role: ${COLOR}
     spec:
       containers:
         - image: duyhuynhdn/capstone-frontend:latest

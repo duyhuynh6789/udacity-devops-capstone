@@ -3,12 +3,13 @@ kind: Service
 metadata:
   name: capstone-frontend
   labels:
-    run: capstone-frontend
+    app: tomcat
+    role: ${COLOR}
 spec:
-  # type: LoadBalancer
+  type: LoadBalancer
   ports:
   - port: 80
-    protocol: TCP
-    targetPort: 80
+    targetPort: 80    
   selector:
-    run: capstone-frontend
+    app: capstone-frontend-${COLOR}
+    role: ${COLOR}

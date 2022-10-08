@@ -21,6 +21,7 @@ jobs:
       - aws-cli/setup
       - run:
           name: Deploy Cloudformation Template with new Docker image
+          no_output_timeout: 30m
           command: |
             aws cloudformation deploy \
             --template-file infrastructure/capstone-infra.yml \
@@ -68,17 +69,27 @@ jobs:
 
   deploy-frontend:
     executor: aws-eks/python3
-    # parameters:
-    #   cluster-name:
-    #     description: |
-    #       Name of the EKS cluster
-    #     type: string
+    parameters:
+      cluster-name:
+        description: |
+          Name of the EKS cluster
+        type: string
     steps:
       - checkout
       - aws-eks/update-kubeconfig-with-authenticator:
-          # cluster-name: << parameters.cluster-name >>
-          cluster-name: "EKSClusterCapstone"
+          cluster-name: << parameters.cluster-name >>
+          # cluster-name: "EKSClusterCapstone"
           install-kubectl: true
+      -  run:
+          name: Restart image
+          command: |
+            kubectl describe service capstone-frontend
+            if [ grep -q "role=GREEN" $? ]; then
+              echo 'export COLOR=BLUE' >> "$BASH_ENV"
+            else
+              echo 'export COLOR=GREEN' >> "$BASH_ENV"
+            fi
+            source "$BASH_ENV"
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
           resource-file-path: "kubernates/capstone-frontend-deployment.yml"
@@ -96,10 +107,6 @@ jobs:
           command: |
             kubectl rollout restart deployment/capstone-frontend
   
-  # update-container:
-  #   executor: aws-eks/python3
-  #   steps:
-
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -109,10 +116,11 @@ workflows:
     jobs:
       - deploy-cfn:
           stack-name: Udacity-Capstone
-      # - build-frontend
-      # - deploy-frontend:
-      #     requires:
-      #         - build-frontend
+      - build-frontend
+      - deploy-frontend:
+          cluster-name: "EKSClusterCapstone"
+          requires:
+              - build-frontend
       # - aws-eks/update-container-image:
       #     cluster-name: "EKSClusterCapstone"
       #     container-image-updates: 'capstone-frontend=duyhuynhdn/capstone-frontend:latest'
