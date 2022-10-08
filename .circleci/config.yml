@@ -111,11 +111,11 @@ jobs:
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
           resource-file-path: "kubernates/capstone-frontend-deployment.yml"
-          resource-name: deployment/capstone-frontend
+          resource-name: deployment/capstone-frontend-$COLOR
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
           resource-file-path: "kubernates/capstone-frontend-service.yml"
-          resource-name: deployment/capstone-frontend
+          resource-name: deployment/capstone-frontend-$COLOR
       - kubernetes/update-container-image:
           get-rollout-status: true
           container-image-updates: "capstone-frontend=duyhuynhdn/capstone-frontend:latest"
