@@ -24,7 +24,7 @@ jobs:
           command: |
             aws cloudformation deploy \
             --template-file infrastructure/capstone-infra.yml \
-            --parameter-overrides infrastructure/capstone-infra-parameters-deploy.json \
+            --parameter-overrides $(jq -r '.[] | [.ParameterKey, .ParameterValue] | "\(.[0])=\(.[1])"' ./infrastructure/capstone-infra-parameters.json) \
             --stack-name << parameters.stack-name >>
 
   build-frontend:
