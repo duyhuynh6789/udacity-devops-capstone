@@ -7,34 +7,26 @@ orbs:
   node: circleci/node@4.7
   aws-eks: circleci/aws-eks@1.1.0
   kubernetes: circleci/kubernetes@0.4.0
+  aws-cli: circleci/aws-cli@1.4.0
 
 jobs:
-  test:
-    executor: aws-eks/python3
+  deploy-cfn:
+    parameters:
+      stack-name:
+        description: Name of the CloudFormation stack
+        type: string
+    executor: aws-cli/default
     steps:
       - checkout
+      - aws-cli/setup
       - run:
-          name: Update target
+          name: Deploy Cloudformation Template with new Docker image
           command: |
-            echo 'export TARGET=GREEN' >> "$BASH_ENV"
-            source "$BASH_ENV"
-      - run:
-          name: Test
-          command: |
-            chmod +x ./variable.sh
-            ./variable.sh
-
-  cosi:
-    executor: aws-eks/python3
-    steps:
-      - checkout      
-      - run:
-          name: Test
-          command: |
-            chmod +x ./variable.sh
-            ./variable.sh
-            echo $TARGET
-            printenv
+            aws cloudformation deploy \
+            --template-body infrastructure/capstone-infra.yml \
+            --parameters infrastructure/capstone-infra-parameters.json \
+            --stack-name << parameters.stack-name >> \
+            --capabilities "CAPABILITY_IAM" "CAPABILITY_NAMED_IAM"
 
   build-frontend:
     docker:
@@ -115,10 +107,7 @@ workflows:
   default: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:
-      - test
-      - cosi:
-          requires: 
-            - test
+      - deploy-cfn
       # - build-frontend
       # - deploy-frontend:
       #     requires:
