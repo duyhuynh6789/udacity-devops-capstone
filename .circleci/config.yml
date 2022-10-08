@@ -103,8 +103,8 @@ jobs:
       - run:
           name: Replace variable
           command: |
-            envsubst < kubernates/capstone-frontend-deployment.yml
-            envsubst < kubernates/capstone-frontend-service.yml
+            envsubst < kubernates/capstone-frontend-deployment.yml > kubernates/capstone-frontend-deployment.yml
+            envsubst < kubernates/capstone-frontend-service.yml > kubernates/capstone-frontend-service.yml
             echo "##################################"
             cat kubernates/capstone-frontend-deployment.yml
             echo "##################################"
