@@ -21,9 +21,7 @@ jobs:
       - run:
           name: Validate CloudFormation template
           command: |
-            pip install cfn-lint 
-            cfn-lint kubernates/capstone-frontend-deployment.yml
-            cfn-lint kubernates/capstone-frontend-service.yml
+            cfn-lint infrastructure/capstone-infra.yml
 
   deploy-cfn:
     parameters:
