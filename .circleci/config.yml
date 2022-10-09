@@ -15,6 +15,10 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install cfn lint 
+          command: |
+            pip install cfn-lint
+      - run:
           name: Validate CloudFormation template
           command: |
             pip install cfn-lint 
