@@ -9,6 +9,18 @@ orbs:
   kubernetes: circleci/kubernetes@0.4.0
   aws-cli: circleci/aws-cli@1.4.0
 jobs:
+  cfn-lint:
+    docker:
+      - image: cimg/python:3.9
+    steps:
+      - checkout
+      - run:
+          name: Validate CloudFormation template
+          command: |
+            pip install cfn-lint 
+            cfn-lint kubernates/capstone-frontend-deployment.yml
+            cfn-lint kubernates/capstone-frontend-service.yml
+
   deploy-cfn:
     parameters:
       stack-name:
@@ -27,6 +39,18 @@ jobs:
             --parameter-overrides $(jq -r '.[] | [.ParameterKey, .ParameterValue] | "\(.[0])=\(.[1])"' ./infrastructure/capstone-infra-parameters.json) \
             --stack-name << parameters.stack-name >> \
             --capabilities "CAPABILITY_IAM" "CAPABILITY_NAMED_IAM"
+
+  lint-frontend:
+    docker:
+      - image: node:13.8.0
+    steps:
+      - checkout
+      - run:
+          name: Check lint code
+          command: |
+            cd frontend
+            npm install
+            npm run lint
 
   build-frontend:
     docker:
@@ -132,9 +156,15 @@ workflows:
   default: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:
+      - cfn-lint
       - deploy-cfn:
           stack-name: Udacity-Capstone
-      - build-frontend
+          requires:
+            - cfn-lint
+      - lint-frontend
+      - build-frontend:
+          requires:
+            - lint-frontend
       - deploy-frontend:
           cluster-name: "EKSClusterCapstone"
           requires:
