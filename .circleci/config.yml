@@ -90,7 +90,7 @@ jobs:
             kubectl get service > service.txt
             if grep -q 'capstone-frontend' service.txt; then
               kubectl describe service capstone-frontend > capstone.txt
-              if [ grep -q "role=green" capstone.txt ]; then
+              if grep -q "role=green" capstone.txt; then
                 echo 'export COLOR=blue' >> "$BASH_ENV"
               else
                 echo 'export COLOR=green' >> "$BASH_ENV"

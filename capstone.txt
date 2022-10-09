@@ -1,0 +1,19 @@
+Name:                     capstone-frontend
+Namespace:                default
+Labels:                   app=capstone-frontend
+                          role=green
+Annotations:              <none>
+Selector:                 app=capstone-frontend,role=green
+Type:                     LoadBalancer
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       172.20.53.202
+IPs:                      172.20.53.202
+LoadBalancer Ingress:     a830c2d8b1dca41f1a01a13d63b792d4-1157475186.us-east-1.elb.amazonaws.com
+Port:                     <unset>  80/TCP
+TargetPort:               80/TCP
+NodePort:                 <unset>  31512/TCP
+Endpoints:                10.0.0.195:80,10.0.1.250:80
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:                   <none>
